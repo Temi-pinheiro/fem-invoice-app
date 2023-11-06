@@ -1,0 +1,34 @@
+.pane-conatiner {
+  @apply flex ml-[52px]  w-full gap-x-8 bg-white items-center h-[34px];
+}
+
+.pane {
+  @apply relative pt-[2px] pb-3;
+}
+
+.smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.pane-label {
+  @apply text-sm font-medium text-[#6C798F] smooth p-2 pb-0 pt-0 first:pl-0;
+}
+
+.pane-value {
+  @apply text-xs font-bold rounded-xl px-[10px] py-[10px] smooth;
+}
+
+.pane-value--inactive {
+  @apply text-[#344054] bg-[#F2F4F7];
+}
+.pane-value--active {
+  @apply text-black  bg-[#F2F4F7];
+}
+
+.pane-label--active {
+  @apply text-black;
+}
+
+.pane-underline {
+  @apply bg-primary h-[2px] relative -bottom-[9px] z-10 w-[115%] -ml-[7.5%] origin-center;
+}

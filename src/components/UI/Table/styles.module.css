@@ -1,0 +1,14 @@
+.header_row {
+  @apply mx-6;
+}
+.table_row {
+  @apply hover:bg-gray-100 duration-200 transition-all cursor-pointer;
+}
+
+.table_header_cells {
+  @apply min-w-max text-xs shrink-0  border-b leading-[18px] py-3 text-black font-normal bg-[#F9FAFB];
+}
+
+.table_cells {
+  @apply py-[18px] text-sm  text-[#656565] border-b border-[#EAECF0] pl-6 last:pl-0 md:max-w-[150px] 2xl:first:max-w-[150px] 2xl:max-w-[330px]  last:overflow-visible;
+}
