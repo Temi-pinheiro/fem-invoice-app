@@ -14,12 +14,17 @@ export async function POST(req: Request) {
   const paymentTerm = await prisma.terms.findFirst({
     where: { value: data.paymentTerm },
   });
+  const items: { quantity: number; price: number }[] = data.items;
+  const amount = items.reduce(
+    (init, curr) => curr.price * curr.quantity + init,
+    0
+  );
 
   const invoice = await prisma.invoice.create({
     data: {
       ...data,
       description: data.description,
-      amount: data.amount,
+      amount,
       invoiceNum: data.invoiceNum,
       dueDate: data.dueDate,
       userId: currentUser?.id,

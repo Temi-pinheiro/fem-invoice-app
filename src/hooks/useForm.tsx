@@ -1,21 +1,21 @@
 import { useState } from 'react';
 
 export function useForm<T>({
-  submitFunction,
   initial,
   useErrors,
   data,
+  schema,
 }: {
-  submitFunction: (v?: any) => void;
   initial?: T;
   useErrors?: boolean;
   data?: T;
   schema?: {
     [fieldName: string]: {
-      [rule: string]: {
+      rules: {
+        rule: string;
         value: any;
         message: string;
-      };
+      }[];
     };
   };
 }) {
@@ -33,23 +33,41 @@ export function useForm<T>({
     }));
     setErrors({ ...errors, [name]: '' });
   };
+
+  const errorCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value }: { name: string; value: any } = e.target;
+    const targetSchema = schema?.[name];
+    if (!targetSchema) return;
+    targetSchema?.rules.map(({ rule, value, message }) => {
+      switch (rule) {
+        case 'required': {
+          if (value) break;
+          setErrors((prev) => ({ ...prev, [name]: message }));
+          break;
+        }
+        default:
+          break;
+      }
+    });
+    // const newErrors: any = {};
+
+    // if (Object.keys(newErrors).length > 0) {
+    //   setErrors(newErrors);
+    // } else {
+    //   return;
+    // }
+  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     // Validation logic goes here
 
-    const newErrors: any = {};
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-    } else {
-      submitFunction();
-    }
     // Make API request or perform submission logic
   };
 
   return {
     formData,
+    check: errorCheck,
     update: updateFormData,
     errors,
     setErrors,
