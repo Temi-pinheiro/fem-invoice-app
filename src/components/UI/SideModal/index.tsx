@@ -51,7 +51,7 @@ export const SideModal = ({
           <AnimatePresence mode='wait'>
             {isOpen && (
               <motion.div
-                onClick={(e: UIEvent) => e.stopPropagation}
+                onClick={(e: UIEvent) => e.stopPropagation()}
                 initial={{
                   x: -206,
                   opacity: 0,
@@ -74,6 +74,7 @@ export const SideModal = ({
                     duration: 0.3,
                   },
                 }}
+                className='w-full'
               >
                 <div
                   className={styles.container}

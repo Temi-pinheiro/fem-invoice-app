@@ -11,6 +11,7 @@ import {
 } from './data';
 import { TextInput } from '../TextInput';
 import { SelectInput } from '../SelectInput';
+import { Button } from '..';
 
 export default function NewInvoiceForm() {
   const { errors, formData, check, update } = useForm<typeof initialData>({
@@ -38,25 +39,29 @@ export default function NewInvoiceForm() {
 
   const createInvoice = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const res = await fetch('/api/invoice', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...formData,
-        receivingAddress: { ...recAddrData },
-        billingAddress: { ...billAddrDara },
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    console.log({
+      ...formData,
+      receivingAddress: { ...recAddrData },
+      billingAddress: { ...billAddrDara },
     });
+    // const res = await fetch('/api/invoice', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     ...formData,
+    //     receivingAddress: { ...recAddrData },
+    //     billingAddress: { ...billAddrDara },
+    //   }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
 
-    await res.json();
+    // await res.json();
   };
 
   return (
-    <form className='w-full flex flex-col gap-y-12'>
-      <section aria-label='bill to' className='flex flex-col gap-y-6 mt-12'>
+    <form className='w-full flex flex-col gap-y-12' onSubmit={createInvoice}>
+      <section aria-label='bill to' className='flex flex-col mt-12'>
         <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
         <TextInput
           label='Street Adrress'
@@ -67,25 +72,27 @@ export default function NewInvoiceForm() {
           value={recAddrData.address}
           handleInputChange={recAddrUpdate}
         />
-        <div className='grid grid-cols-3 w-full'>
-          <TextInput
-            label='City'
-            key='recaddrci'
-            error={recAddrErrors.city}
-            name='city'
-            errorCheck={recAddrCheck}
-            value={recAddrData.city}
-            handleInputChange={recAddrUpdate}
-          />
-          <TextInput
-            label='Postal Code'
-            error={recAddrErrors.postCode}
-            key='recaddrcod'
-            name='postCode'
-            errorCheck={recAddrCheck}
-            value={recAddrData.postCode}
-            handleInputChange={recAddrUpdate}
-          />
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full'>
+          <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
+            <TextInput
+              label='City'
+              key='recaddrci'
+              error={recAddrErrors.city}
+              name='city'
+              errorCheck={recAddrCheck}
+              value={recAddrData.city}
+              handleInputChange={recAddrUpdate}
+            />
+            <TextInput
+              label='Postal Code'
+              error={recAddrErrors.postCode}
+              key='recaddrcod'
+              name='postCode'
+              errorCheck={recAddrCheck}
+              value={recAddrData.postCode}
+              handleInputChange={recAddrUpdate}
+            />
+          </div>
           <TextInput
             label='Country'
             error={recAddrErrors.country}
@@ -97,7 +104,7 @@ export default function NewInvoiceForm() {
           />
         </div>
       </section>
-      <section aria-label='bill from' className='grid grid-cols-3 w-full'>
+      <section aria-label='bill from' className='flex flex-col'>
         {' '}
         <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
         <TextInput
@@ -107,7 +114,7 @@ export default function NewInvoiceForm() {
           name='clientName'
           errorCheck={billAddrCheck}
           value={billAddrDara.clientName}
-          handleInputChange={billAddrCheck}
+          handleInputChange={billAddrUpdate}
         />
         <TextInput
           label="Client's email"
@@ -117,7 +124,7 @@ export default function NewInvoiceForm() {
           name='email'
           errorCheck={billAddrCheck}
           value={billAddrDara.email}
-          handleInputChange={billAddrCheck}
+          handleInputChange={billAddrUpdate}
         />
         <TextInput
           label='Street Adrress'
@@ -126,27 +133,29 @@ export default function NewInvoiceForm() {
           key='billaddraddr'
           errorCheck={billAddrCheck}
           value={billAddrDara.address}
-          handleInputChange={billAddrCheck}
+          handleInputChange={billAddrUpdate}
         />
-        <div className='grid grid-cols-3 w-full'>
-          <TextInput
-            label='City'
-            error={billAddrErrors.city}
-            name='city'
-            key='billaddrci'
-            errorCheck={billAddrCheck}
-            value={billAddrDara.city}
-            handleInputChange={billAddrCheck}
-          />
-          <TextInput
-            label='Postal Code'
-            error={billAddrErrors.postCode}
-            name='postCode'
-            errorCheck={billAddrCheck}
-            key='billadddrcod'
-            value={billAddrDara.postCode}
-            handleInputChange={recAddrCheck}
-          />
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full '>
+          <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
+            <TextInput
+              label='City'
+              error={billAddrErrors.city}
+              name='city'
+              key='billaddrci'
+              errorCheck={billAddrCheck}
+              value={billAddrDara.city}
+              handleInputChange={billAddrUpdate}
+            />
+            <TextInput
+              label='Postal Code'
+              error={billAddrErrors.postCode}
+              name='postCode'
+              errorCheck={billAddrCheck}
+              key='billadddrcod'
+              value={billAddrDara.postCode}
+              handleInputChange={billAddrUpdate}
+            />
+          </div>
           <TextInput
             label='Country'
             error={billAddrErrors.country}
@@ -154,17 +163,17 @@ export default function NewInvoiceForm() {
             key='billaddrcou'
             errorCheck={billAddrCheck}
             value={billAddrDara.country}
-            handleInputChange={recAddrCheck}
+            handleInputChange={billAddrUpdate}
           />
         </div>
       </section>
-      <section aria-label='invoice deets'>
-        <div className='grid grid-cols-2 w-full'>
+      <section aria-label='invoice deets' className='flex flex-col gap-y-2'>
+        <div className='grid grid-cols-2 gap-x-6 w-full'>
           <TextInput
             label='Issue Date'
             type='date'
             key='issueda'
-            error={formData.dueDate}
+            error={errors.dueDate}
             name='dueDate'
             errorCheck={check}
             value={formData.dueDate}
@@ -200,7 +209,7 @@ export default function NewInvoiceForm() {
         <TextInput
           label='Product Description'
           key='desc'
-          error={formData.description}
+          error={errors.description}
           name='description'
           errorCheck={check}
           value={formData.description}
@@ -208,6 +217,13 @@ export default function NewInvoiceForm() {
         />
       </section>
       <section aria-label='items'></section>
+      <div className='flex items-center w-full justify-between pb-8'>
+        <Button label='Discard' neutral />
+        <div className='gap-x-4 flex items-center ml-auto'>
+          <Button label='Save as draft' draft />
+          <Button label='Save & Send' type='submit' />
+        </div>
+      </div>
     </form>
   );
 }

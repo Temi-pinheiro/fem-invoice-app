@@ -3,6 +3,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 import { prisma } from '~/lib/prisma';
 
+const generateInvoiceNum = async (user: any) => {
+  const lastIndex = await prisma.invoice.count({ where: { userId: user.id } });
+  return `${user.name.slice(0, 3)}${(lastIndex + 1)
+    .toString()
+    .padStart(3, '0')}`;
+};
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   const currentUserName = session?.user?.name;
@@ -25,9 +32,10 @@ export async function POST(req: Request) {
       ...data,
       description: data.description,
       amount,
-      invoiceNum: data.invoiceNum,
+      invoiceNum: generateInvoiceNum(currentUser),
       dueDate: data.dueDate,
       userId: currentUser?.id,
+
       paymentTermId: paymentTerm?.id,
       status: data.status,
       receivingAddress: { create: { ...data.receivingAddress } },

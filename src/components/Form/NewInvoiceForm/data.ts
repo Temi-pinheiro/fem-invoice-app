@@ -1,5 +1,4 @@
 export const initialData = {
-  invoiceNum: '',
   dueDate: '',
   description: '',
   paymentTermId: '',
@@ -21,15 +20,6 @@ export const billingAddrData = {
 };
 
 export const initialDataSchema = {
-  invoiceNum: {
-    rules: [
-      {
-        rule: 'required',
-        value: true,
-        message: 'Please add an invoice number',
-      },
-    ],
-  },
   dueDate: {
     rules: [
       {

@@ -35,13 +35,13 @@ export function useForm<T>({
   };
 
   const errorCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value }: { name: string; value: any } = e.target;
+    const { name, value: formValue }: { name: string; value: any } = e.target;
     const targetSchema = schema?.[name];
     if (!targetSchema) return;
     targetSchema?.rules.map(({ rule, value, message }) => {
       switch (rule) {
         case 'required': {
-          if (value) break;
+          if (formValue) break;
           setErrors((prev: any) => ({ ...prev, [name]: message }));
           break;
         }

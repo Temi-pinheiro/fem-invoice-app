@@ -3,7 +3,7 @@
 }
 
 .select-input {
-  @apply min-w-[240px] w-full py-4 px-5 outline-none text-[#0C0E16] dark:text-white border-[#DEE2FA] dark:border-slate-800 dark:bg-gray-800 border rounded  text-sm focus-within:border-[#7C5DFA] active:border-[#7C5DFA]  transition-all font-semibold ease-in-out duration-200;
+  @apply min-w-[100px] w-full py-4 px-5 outline-none text-[#0C0E16] dark:text-white border-[#DEE2FA] dark:border-slate-800 dark:bg-gray-800 border rounded  text-sm focus-within:border-[#7C5DFA] active:border-[#7C5DFA]  transition-all font-semibold ease-in-out duration-200;
 }
 
 .dropdown-options-container {

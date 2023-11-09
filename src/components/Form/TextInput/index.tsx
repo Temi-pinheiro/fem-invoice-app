@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import styles from './styles.module.css';
+import { AnimatePresence, motion } from 'framer-motion';
 interface TextInputProps {
   label?: string;
   placeholder?: string;
@@ -65,7 +66,15 @@ export const TextInput = ({
         readOnly={readOnly}
         {...props}
       />
-      {error ? <span className='text-sm text-[#EC5757]'>{error}</span> : null}
+      <span>
+        <motion.span
+          animate={{ opacity: Boolean(error) ? 1 : 0 }}
+          className='text-sm text-[#EC5757]'
+        >
+          {error ?? ' 7s'}
+        </motion.span>
+      </span>
+
       <span className='text-sm text-[#667085]'>{hint}</span>
     </div>
   );
