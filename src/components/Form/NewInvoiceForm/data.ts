@@ -8,13 +8,13 @@ export const initialData = {
 export const receivingAddrData = {
   city: '',
   address: '',
-  state: '',
+  country: '',
   postCode: '',
 };
 export const billingAddrData = {
   city: '',
   address: '',
-  state: '',
+  country: '',
   postCode: '',
   email: '',
   clientName: '',

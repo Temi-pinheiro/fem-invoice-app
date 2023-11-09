@@ -6,16 +6,15 @@
   z-index: 90;
   width: 100%;
   height: 100%;
+  @apply left-0 md:left-[103px] top-[72px] md:top-0;
 }
 
 .container {
-  height: 100vh;
-  @apply py-6 w-[480px] bg-white absolute right-0 overflow-clip;
+  @apply p-6 h-full md:h-screen md:pt-14 md:px-14 md:pb-8 w-full md:w-[616px] lg:w-[719px] bg-white dark:bg-[#141625] absolute left-0  overflow-clip;
 }
 
 .component_container {
-  max-height: 100vh;
-  @apply overflow-y-scroll w-full;
+  @apply h-full md:max-h-screen  overflow-y-scroll w-full;
 }
 
 /* width */

@@ -6,8 +6,8 @@ import Loader from '../Loader';
 export default function NavBar() {
   const { status, data: session } = useSession();
   return (
-    <div className='bg-gray-50 dark:bg-[#141625] md:h-full'>
-      <nav className='md:h-screen w-full md:w-[103px] bg-[#1E2139] md:rounded-tr-lg md:rounded-br-lg flex flex-row md:flex-col'>
+    <div className='bg-gray-50 dark:bg-[#141625] md:h-screen'>
+      <nav className='md:h-full w-full md:w-[103px] bg-[#1E2139]   md:rounded-br-lg flex flex-row md:flex-col'>
         <img
           src='/icon.svg'
           alt='icon'

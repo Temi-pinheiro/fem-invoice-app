@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { Button } from '~/components';
 import Filter from '~/components/UI/Filter';
+import NewInvoiceButton from '~/components/UI/NewInvoiceButton';
 import { prisma } from '~/lib/prisma';
 export const metadata: Metadata = {
   title: 'Invoice App',
@@ -40,7 +41,7 @@ export default async function InvoicesPage() {
         <div className='flex items-center gap-x-5'>
           {/* <Filter /> */}
 
-          <Button label='New Invoice' />
+          <NewInvoiceButton />
         </div>
       </header>
       {invoices?.length > 0 ? (

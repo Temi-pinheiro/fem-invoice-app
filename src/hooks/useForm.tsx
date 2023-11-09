@@ -23,7 +23,7 @@ export function useForm<T>({
   const [formData, setFormData] = useState<T | Partial<T>>(() =>
     useErrors ? { ...data } : { ...initial }
   );
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
 
   const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,7 +42,7 @@ export function useForm<T>({
       switch (rule) {
         case 'required': {
           if (value) break;
-          setErrors((prev) => ({ ...prev, [name]: message }));
+          setErrors((prev: any) => ({ ...prev, [name]: message }));
           break;
         }
         default:

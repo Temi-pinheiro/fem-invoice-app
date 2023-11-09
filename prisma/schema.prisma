@@ -74,7 +74,7 @@ model ReceivingAddress {
   invoiceId            String       @unique
   city                 String
   address              String
-  state                String
+  country              String
   postCode             String
   accountDetails       BankAccount? @relation(fields: [bankAccountAccountNo, bankAccountUserId], references: [accountNo, userId])
   bankAccountAccountNo Int?
@@ -89,7 +89,7 @@ model BillingAddress {
   clientName String
   city       String
   address    String
-  state      String
+  country    String
   postCode   String
 }
 

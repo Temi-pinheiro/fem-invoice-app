@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { RefObject } from 'react';
 import styles from './styles.module.css';
 interface TextInputProps {
@@ -9,6 +8,8 @@ interface TextInputProps {
   type?: 'text' | 'email' | 'number' | 'tel' | 'url' | 'date';
   name: string;
   hint?: string;
+  errorCheck?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
   value?: string | number | undefined;
   autoFocus?: boolean;
   refObject?: RefObject<HTMLInputElement>;
@@ -22,6 +23,7 @@ export const TextInput = ({
   type = 'text',
   required = false,
   name,
+  errorCheck,
   autoFocus = false,
   value = '',
   readOnly,
@@ -51,8 +53,9 @@ export const TextInput = ({
       )}
       <input
         placeholder={placeholder}
-        // onChange={handleChange}
-        // value={value}
+        onChange={handleChange}
+        value={value}
+        onBlur={errorCheck}
         autoFocus={autoFocus}
         required={required}
         type={type}

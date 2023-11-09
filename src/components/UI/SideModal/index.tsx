@@ -53,11 +53,11 @@ export const SideModal = ({
               <motion.div
                 onClick={(e: UIEvent) => e.stopPropagation}
                 initial={{
-                  x: window.innerWidth,
+                  x: -206,
                   opacity: 0,
                 }}
                 animate={{
-                  x: 1,
+                  x: 0,
                   opacity: 1,
                   transition: {
                     type: 'tween',
@@ -65,21 +65,35 @@ export const SideModal = ({
                     duration: 0.3,
                   },
                 }}
-                exit={{ x: window.innerWidth, opacity: 0 }}
+                exit={{
+                  x: -window.innerWidth,
+                  opacity: 0,
+                  transition: {
+                    type: 'tween',
+                    ease: [0.4, 0.0, 0.2, 1],
+                    duration: 0.3,
+                  },
+                }}
               >
                 <div
                   className={styles.container}
                   onClick={(e: UIEvent) => e.stopPropagation}
                 >
-                  <div
-                    className={`${
-                      title ? 'border-b' : ''
-                    } flex items-center px-6 pb-4 w-full justify-between`}
+                  <button
+                    id='go-back'
+                    className='group flex items-center gap-x-4 dark:text-white text-[#0C0E16] mb-4 text-xs md:hidden'
+                    onClick={handleClose}
                   >
-                    <h2 className='text-lg  font-medium'>{title}</h2>
+                    <BackIcon />
+                    Go Back
+                  </button>
+                  <div className='flex items-center w-full justify-between '>
+                    <h2 className='text-2xl text-[#0C0E16] dark:text-white font-bold'>
+                      {title}
+                    </h2>
                     <button
                       id='close-icon'
-                      className='group'
+                      className='group hidden md:inline-block'
                       onClick={handleClose}
                     >
                       <CloseIcon />
@@ -116,6 +130,22 @@ const CloseIcon = () => (
       strokeWidth='2'
       strokeLinecap='round'
       strokeLinejoin='round'
+    />
+  </svg>
+);
+
+const BackIcon = () => (
+  <svg
+    width='6'
+    height='11'
+    viewBox='0 0 6 11'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M4.3418 0.885742L0.113895 5.11364L4.3418 9.34155'
+      stroke='#7C5DFA'
+      strokeWidth='2'
     />
   </svg>
 );
