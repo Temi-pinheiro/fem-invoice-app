@@ -1,9 +1,7 @@
 .filter-box {
-  @apply flex items-center gap-x-2 p-2 rounded bg-info-100 w-fit text-xs hover:bg-info-200 cursor-pointer transition duration-200 ease-in-out relative ml-auto;
+  @apply flex items-center gap-x-2 p-2 rounded bg-blue-300 w-fit text-xs hover:bg-blue-400  transition duration-200 ease-in-out relative ml-auto;
 }
 
 .filter-options-container {
-  box-shadow: 0px 0px 1px rgba(48, 49, 51, 0.05),
-    0px 4px 8px rgba(48, 49, 51, 0.1);
-  @apply flex flex-col absolute mt-2 right-0 bg-white rounded-10xl w-[300px] py-6 gap-y-3 px-5 z-10;
+  @apply flex flex-col shadow absolute mt-2 right-0 bg-white dark:bg-slate-800 dark:text-white rounded-lg w-48 p-6 text-sm font-bold gap-y-3 z-10;
 }

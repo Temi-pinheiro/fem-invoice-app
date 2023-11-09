@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { ReactNode, UIEvent, useState } from 'react';
 import styles from './styles.module.css';
-import { slideOutModal } from '~/providers';
+import { slideOutModal } from '~/providers/SideModalProvider';
 const bgVariant = {
   enter: {
     opacity: 0,

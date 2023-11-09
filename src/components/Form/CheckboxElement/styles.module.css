@@ -1,0 +1,7 @@
+.container {
+  @apply flex items-center gap-x-3;
+}
+
+.container input {
+  @apply accent-violet-500 rounded-lg w-4 h-4;
+}

@@ -1,5 +1,7 @@
+import Loader from '~/components/UI/Loader';
+
 const InvoicesLoading = () => {
-  return <div>InvoicesLoading</div>;
+  return <Loader big />;
 };
 
 export default InvoicesLoading;

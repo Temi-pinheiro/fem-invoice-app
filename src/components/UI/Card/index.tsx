@@ -1,7 +1,9 @@
+'use client';
+
 import React, { ReactNode, useState } from 'react';
 import styles from './styles.module.css';
 
-export const InformationCard = ({
+export const InvoiceCard = ({
   title,
   children,
   showing,

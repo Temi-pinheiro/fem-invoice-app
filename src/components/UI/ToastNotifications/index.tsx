@@ -1,3 +1,4 @@
+'use client';
 import toast, { useToaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -13,8 +14,8 @@ export const ToastNotifications = () => {
         left: 0,
       }}
       className='flex w-full justify-center'
-      onMouseEnter={startPause}
-      onMouseLeave={endPause}
+      onMouseEnter={() => startPause()}
+      onMouseLeave={() => endPause()}
     >
       <AnimatePresence>
         {toasts.map((t: any) => {
