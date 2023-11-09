@@ -1,5 +1,5 @@
 .btn {
-  @apply py-4 px-6 text-sm font-bold rounded-3xl disabled:bg-[#F3F4F9]   disabled:hover:bg-[#F3F4F9] disabled:hover:text-[#C2C7CF] transition-all duration-200 ease-in-out disabled:border-transparent disabled:hover:ring-0;
+  @apply py-4 px-6 text-sm font-bold rounded-3xl disabled:cursor-not-allowed transition-all duration-200 ease-in-out disabled:border-transparent disabled:hover:ring-0;
 }
 
 .btn svg,

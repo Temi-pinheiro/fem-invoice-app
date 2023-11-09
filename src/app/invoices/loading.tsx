@@ -1,7 +1,5 @@
 import Loader from '~/components/UI/Loader';
 
-const InvoicesLoading = () => {
+export default function InvoicesLoading() {
   return <Loader big />;
-};
-
-export default InvoicesLoading;
+}

@@ -26,10 +26,10 @@ export function useForm<T>({
   const [errors, setErrors] = useState<any>({});
 
   const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      [name]: value,
+      [name]: type == 'number' ? Number(value) : value,
     }));
     setErrors({ ...errors, [name]: '' });
   };

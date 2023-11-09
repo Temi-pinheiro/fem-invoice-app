@@ -32,8 +32,8 @@ export async function POST(req: Request) {
       ...data,
       description: data.description,
       amount,
-      invoiceNum: generateInvoiceNum(currentUser),
-      dueDate: data.dueDate,
+      invoiceNum: await generateInvoiceNum(currentUser),
+      dueDate: new Date(data.dueDate),
       userId: currentUser?.id,
 
       paymentTermId: paymentTerm?.id,

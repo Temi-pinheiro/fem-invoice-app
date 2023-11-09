@@ -71,7 +71,7 @@ export const TextInput = ({
           animate={{ opacity: Boolean(error) ? 1 : 0 }}
           className='text-sm text-[#EC5757]'
         >
-          {error ?? ' 7s'}
+          {error ? error ?? ' 7s' : '7s'}
         </motion.span>
       </span>
 

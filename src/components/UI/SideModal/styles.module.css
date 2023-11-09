@@ -4,9 +4,15 @@
   position: absolute;
   inset: 0;
   z-index: 90;
-  width: 100%;
+  width: calc(100% - 103px);
   height: 100%;
   @apply left-0 md:left-[103px] top-[72px] md:top-0;
+}
+
+@media (max-width: 768px) {
+  .background {
+    width: 100%;
+  }
 }
 
 .container {

@@ -24,7 +24,7 @@
 }
 
 .input_field {
-  @apply px-5 font-bold autofill:bg-current  py-4 outline-none text-black border-indigo-100 border dark:bg-gray-800 dark:border-slate-800 dark:text-white placeholder:text-gray-600 rounded-[4px] read-only:bg-[#F3F4F9] read-only:focus:bg-gray-200 read-only:text-gray-500 read-only:focus:text-gray-500 text-sm read-only:border-none focus:border-indigo-400  smooth invalid:text-red-500;
+  @apply px-5 font-bold autofill:bg-current  py-4 outline-none text-black border-indigo-100 border dark:bg-gray-800 dark:border-slate-800 dark:text-white placeholder:text-gray-600 rounded-[4px] read-only:bg-[#F3F4F9] read-only:focus:bg-gray-200 read-only:text-gray-500 read-only:focus:text-gray-500 text-sm read-only:border-none focus:border-indigo-400  smooth;
 }
 .input_error .input_field {
   @apply border-[#EC5757] focus:border-[#EC5757];

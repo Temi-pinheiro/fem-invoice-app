@@ -12,8 +12,19 @@ import {
 import { TextInput } from '../TextInput';
 import { SelectInput } from '../SelectInput';
 import { Button } from '..';
+import { useState, useTransition } from 'react';
+import { v4 } from 'uuid';
+import InvoiceItem from '../InvoiceItem';
+import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
-export default function NewInvoiceForm() {
+export default function NewInvoiceForm({ close }: { close: () => void }) {
+  const router = useRouter();
+  const [action, setAction] = useState('');
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
+  const isMutating = isFetching || isPending;
   const { errors, formData, check, update } = useForm<typeof initialData>({
     initial: { ...initialData },
     schema: { ...initialDataSchema },
@@ -36,31 +47,78 @@ export default function NewInvoiceForm() {
     initial: { ...receivingAddrData },
     schema: { ...receivingAddrSchema },
   });
+  const [itemList, setItemList] = useState<
+    Array<{
+      id: string;
+      name: string;
+      quantity: number;
+      price: number;
+    }>
+  >([]);
+  const updateItem = (id: string, e: any) => {
+    const [item] = itemList!.filter((it) => it.id == id);
+    const newItem = {
+      ...item,
+      [e.target.name]:
+        e.target.type == 'number' ? Number(e.target.value) : e.target.value,
+    };
+    const newItemList = [...itemList!];
+    newItemList[itemList!.indexOf(item)] = newItem;
+    setItemList([...newItemList]);
+  };
+  const addItem = () => {
+    setItemList((prev) => [
+      ...prev!,
+      {
+        id: v4(),
+        name: '',
+        quantity: 1,
+        price: 0,
+      },
+    ]);
+  };
+  const deleteItem = (id: string) => {
+    const newItemList = itemList!.filter((item) => item.id != id);
+    setItemList([...newItemList]);
+  };
+  const createInvoice = async (action: 'draft' | 'submit') => {
+    //TODO add a dirty checker
+    // if (errors || recAddrErrors || billAddrErrors) {
+    //   toast.error('Please make sure you fill in all the required fields');
+    //   return;
+    // }
+    setAction(action);
+    setIsFetching(true);
 
-  const createInvoice = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log({
-      ...formData,
-      receivingAddress: { ...recAddrData },
-      billingAddress: { ...billAddrDara },
-    });
-    // const res = await fetch('/api/invoice', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     ...formData,
-    //     receivingAddress: { ...recAddrData },
-    //     billingAddress: { ...billAddrDara },
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-
-    // await res.json();
+    try {
+      const res = await fetch('/api/invoice', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...formData,
+          status: action == 'draft' ? 'draft' : 'pending',
+          receivingAddress: { ...recAddrData },
+          billingAddress: { ...billAddrDara },
+          items: [...itemList],
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setIsFetching(false);
+      console.log(res);
+      if (!res.ok) throw { message: res.statusText };
+      toast.success('Invoice created successfully');
+      // startTransition(() => {
+      //   router.refresh();
+      //   close();
+      // });
+    } catch (e: any) {
+      toast.error(e.message);
+    }
   };
 
   return (
-    <form className='w-full flex flex-col gap-y-12' onSubmit={createInvoice}>
+    <form className='w-full flex flex-col gap-y-12'>
       <section aria-label='bill to' className='flex flex-col mt-12'>
         <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
         <TextInput
@@ -183,26 +241,26 @@ export default function NewInvoiceForm() {
             label='Payment Terms'
             options={[
               {
-                value: 'Net 1 Day',
-                label: 'Net1',
+                label: 'Net 1 Day',
+                value: 'Net1',
               },
               {
-                value: 'Net 7 Days',
-                label: 'Net7',
+                label: 'Net 7 Days',
+                value: 'Net7',
               },
               {
-                value: 'Net 14 Days',
-                label: 'Net14',
+                label: 'Net 14 Days',
+                value: 'Net14',
               },
               {
-                value: 'Net 30 Days',
-                label: 'Net30',
+                label: 'Net 30 Days',
+                value: 'Net30',
               },
             ]}
             key='paymentTermId'
             name='paymentTermId'
             placeholder='Please select terms'
-            defaultValue={formData.paymentTermId}
+            // defaultValue={formData.paymentTermId}
             onChange={update}
           />
         </div>
@@ -215,13 +273,37 @@ export default function NewInvoiceForm() {
           value={formData.description}
           handleInputChange={update}
         />
+        <section aria-label='items' className='flex flex-col gap-y-6'>
+          <h3 className='text-lg text-slate-500 font-bold'>Item List</h3>
+          <ul className='w-full flex flex-col  '>
+            <AnimatePresence mode='popLayout' initial={false}>
+              {itemList?.map((item) => (
+                <InvoiceItem
+                  key={item.id}
+                  item={item}
+                  updateFunc={updateItem}
+                  deleteFunc={deleteItem}
+                />
+              ))}
+            </AnimatePresence>
+          </ul>
+          <Button label='+ Add New Item' fullWidth draft effect={addItem} />
+        </section>
       </section>
-      <section aria-label='items'></section>
       <div className='flex items-center w-full justify-between pb-8'>
-        <Button label='Discard' neutral />
+        <Button label='Discard' neutral effect={close} />
         <div className='gap-x-4 flex items-center ml-auto'>
-          <Button label='Save as draft' draft />
-          <Button label='Save & Send' type='submit' />
+          <Button
+            label='Save as draft'
+            draft
+            effect={() => createInvoice('draft')}
+            loading={isMutating && action == 'draft'}
+          />
+          <Button
+            label='Save & Send'
+            effect={() => createInvoice('submit')}
+            loading={isMutating && action == 'submit'}
+          />
         </div>
       </div>
     </form>

@@ -12,6 +12,7 @@ interface ButtonProps {
   loading?: boolean;
   leftIcon?: boolean;
   rightIcon?: boolean;
+  fullWidth?: boolean;
   icon?: any;
   effect?: any;
   label?: string;
@@ -21,6 +22,7 @@ interface ButtonProps {
 export const Button = ({
   primary = false,
   secondary,
+  fullWidth,
   neutral,
   danger = false,
   draft = false,
@@ -53,14 +55,18 @@ export const Button = ({
         'btn duration-200 transition ',
         `${mode}`,
         icon ? 'flex items-center gap-x-4' : '',
+        fullWidth ? 'w-full' : '',
       ].join(' ')}
       disabled={disabled || loading}
       onClick={effect}
       {...props}
     >
       {loading ? (
-        <span className='w-full grid place-items-center'>
-          <Loader bgColor='#2C1DFF' />
+        <span className='w-full grid place-items-center relative'>
+          <span className='absolute z-10'>
+            <Loader bgColor='#2C1DFF' />
+          </span>
+          <span className='opacity-0'>{label}</span>
         </span>
       ) : (
         <>
