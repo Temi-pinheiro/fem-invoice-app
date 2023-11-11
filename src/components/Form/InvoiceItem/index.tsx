@@ -10,7 +10,7 @@ export default function InvoiceItem({
     id: string;
     name: string;
     quantity: number;
-    price: number;
+    price: number | undefined;
   };
   updateFunc: (id: string, e: any) => void;
   deleteFunc: (id: any) => void;
@@ -59,13 +59,14 @@ export default function InvoiceItem({
             <TextInput
               name='price'
               label='Price'
+              placeholder='0'
               type='number'
               handleInputChange={handleUpdate}
               value={item.price}
             />
           </div>
           <span className='text-slate-400 dark:text-indigo-100 font-bold text-sm w-full'>
-            {(item.price * item.quantity).toFixed(2)}
+            {(Number(item.price || 0) * item.quantity).toFixed(2)}
           </span>
           <button onClick={() => deleteFunc(item.id)} className='group w-fit'>
             <svg

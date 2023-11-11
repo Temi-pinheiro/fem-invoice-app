@@ -1,9 +1,10 @@
+'use client';
 interface LoaderProps {
   big?: boolean;
   bgColor?: string;
 }
 
-const Loader = ({ big, bgColor }: LoaderProps) => {
+export default function Loader({ big, bgColor }: LoaderProps) {
   return big ? (
     <div className='w-full h-full grid place-items-center'>
       <svg
@@ -75,6 +76,4 @@ const Loader = ({ big, bgColor }: LoaderProps) => {
       </svg>
     </>
   );
-};
-
-export default Loader;
+}

@@ -12,10 +12,10 @@ const generateInvoiceNum = async (user: any) => {
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-  const currentUserName = session?.user?.name;
+  const email = session?.user?.email;
 
   const currentUser = await prisma.user.findFirst({
-    where: { name: currentUserName },
+    where: { email },
   });
   const data = await req.json();
   const paymentTerm = await prisma.terms.findFirst({

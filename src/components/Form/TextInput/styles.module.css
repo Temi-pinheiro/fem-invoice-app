@@ -29,3 +29,7 @@
 .input_error .input_field {
   @apply border-[#EC5757] focus:border-[#EC5757];
 }
+
+.num_input {
+  display: none;
+}

@@ -52,7 +52,7 @@ export default function NewInvoiceForm({ close }: { close: () => void }) {
       id: string;
       name: string;
       quantity: number;
-      price: number;
+      price: number | undefined;
     }>
   >([]);
   const updateItem = (id: string, e: any) => {
@@ -73,7 +73,7 @@ export default function NewInvoiceForm({ close }: { close: () => void }) {
         id: v4(),
         name: '',
         quantity: 1,
-        price: 0,
+        price: undefined,
       },
     ]);
   };
@@ -108,10 +108,10 @@ export default function NewInvoiceForm({ close }: { close: () => void }) {
       console.log(res);
       if (!res.ok) throw { message: res.statusText };
       toast.success('Invoice created successfully');
-      // startTransition(() => {
-      //   router.refresh();
-      //   close();
-      // });
+      startTransition(() => {
+        router.refresh();
+        close();
+      });
     } catch (e: any) {
       toast.error(e.message);
     }

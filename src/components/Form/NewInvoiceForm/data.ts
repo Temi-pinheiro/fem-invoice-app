@@ -98,6 +98,20 @@ export const billingAddrSchema = {
       },
     ],
   },
+  email: {
+    rules: [
+      {
+        rule: 'pattern',
+        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+        message: 'Please enter a valid email',
+      },
+      {
+        rule: 'required',
+        value: true,
+        message: 'Please enter a postCode',
+      },
+    ],
+  },
   address: {
     rules: [
       {
@@ -132,15 +146,6 @@ export const billingAddrSchema = {
         rule: 'required',
         value: true,
         message: 'Please enter the client&apos;s email',
-      },
-    ],
-  },
-  email: {
-    rules: [
-      {
-        rule: 'required',
-        value: true,
-        message: 'Please enter a postCode',
       },
     ],
   },

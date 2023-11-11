@@ -13,7 +13,7 @@ export const StatusBox = ({ status }: StatusBoxProps) => {
       color = '#FF8F00';
       break;
     case 'draft':
-      color = '#373B53';
+      color = '#DFE3FA';
       break;
     case 'overdue':
       color = '#EC5757';
