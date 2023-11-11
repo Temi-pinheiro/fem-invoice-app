@@ -68,7 +68,11 @@ export default function InvoiceItem({
           <span className='text-slate-400 dark:text-indigo-100 font-bold text-sm w-full'>
             {(Number(item.price || 0) * item.quantity).toFixed(2)}
           </span>
-          <button onClick={() => deleteFunc(item.id)} className='group w-fit'>
+          <button
+            onClick={() => deleteFunc(item.id)}
+            className='group w-fit'
+            type='button'
+          >
             <svg
               width='13'
               height='16'

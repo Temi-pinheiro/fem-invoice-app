@@ -5,7 +5,7 @@ import { CheckboxElement } from '~/components';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 
-const Filter = () => {
+export default function Filter() {
   const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
@@ -95,6 +95,4 @@ const Filter = () => {
       {/* )} */}
     </div>
   );
-};
-
-export default Filter;
+}

@@ -1,10 +1,8 @@
 'use client';
 
 import React from 'react';
-import styles from './styles.module.css';
-import { Invoice, Status } from '@prisma/client';
+import { Status } from '@prisma/client';
 import { getFormattedDate, getFullMoney } from '~/utils/formatter';
-import { StatusDot } from '../StatusDot';
 import { StatusBox } from '../StatusBox/StatusBox';
 import Link from 'next/link';
 
@@ -61,7 +59,11 @@ export default function InvoiceCard({
           </svg>
         </Link>
       </div>
-      <div className='flex flex-col md:hidden p-6 bg-white dark:bg-[#1E2139] gap-y-6 rounded-lg'>
+      <Link
+        className='flex flex-col md:hidden p-6 bg-white dark:bg-[#1E2139] gap-y-6 rounded-lg'
+        href={`/invoices/${invoice.id}`}
+        prefetch={false}
+      >
         <div className='flex w-full items-center justify-between'>
           <span className='text-sm font-bold  text-[#0C0E16] dark:text-white uppercase  '>
             <span className='text-[#7E88C3] dark:text-[#888EB0]'>#</span>{' '}
@@ -82,7 +84,7 @@ export default function InvoiceCard({
           </div>
           <StatusBox status={invoice.status} />
         </div>
-      </div>
+      </Link>
     </>
   );
 }

@@ -2,12 +2,11 @@ export const dynamic = 'force-dynamic';
 /* eslint-disable @next/next/no-img-element */
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
-import { Button } from '~/components';
 import InvoiceCard from '~/components/UI/Card';
-import Filter from '~/components/UI/Filter';
 import NewInvoiceButton from '~/components/UI/NewInvoiceButton';
 import { prisma } from '~/lib/prisma';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import { AnimatePresence } from 'framer-motion';
 export const metadata: Metadata = {
   title: 'Invoice App',
   description: "Let's get this bread",
@@ -30,6 +29,9 @@ export default async function InvoicesPage() {
         status: true,
         billingAddress: true,
       },
+      orderBy: {
+        dueDate: 'desc',
+      },
     });
     return (
       <div className='flex flex-col max-w-[730px] w-full mt-[34px] sm:mt-14 md:mt-[72px]'>
@@ -50,11 +52,14 @@ export default async function InvoicesPage() {
             <NewInvoiceButton />
           </div>
         </header>
+
         {invoices?.length > 0 ? (
           <ul className='flex flex-col gap-y-4 mt-14 px-6 md:px-0'>
-            {invoices.map((invoice) => (
-              <InvoiceCard key={invoice.id} invoice={invoice} />
-            ))}
+            <AnimatePresence initial={false} mode='popLayout'>
+              {invoices.map((invoice) => (
+                <InvoiceCard key={invoice.id} invoice={invoice} />
+              ))}
+            </AnimatePresence>
           </ul>
         ) : (
           <div className='w-full h-full flex flex-col items-center justify-center'>
