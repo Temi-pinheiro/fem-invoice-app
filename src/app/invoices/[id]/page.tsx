@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '~/components';
+import ActionButtons from '~/components/UI/ActionButtons';
 import { StatusBox } from '~/components/UI/StatusBox/StatusBox';
 import { prisma } from '~/lib/prisma';
 import { getFormattedDate, getFullMoney } from '~/utils/formatter';
@@ -51,16 +52,7 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
               <StatusBox status={status!} />
             </div>
             <div className='hidden md:flex items-center gap-x-4'>
-              {invoice?.status == 'paid' ? null : (
-                <Button label='Edit' neutral />
-              )}
-              <Button label='Delete' danger />
-              {invoice?.status == 'pending' || invoice?.status == 'overdue' ? (
-                <Button label='Mark as Paid' />
-              ) : null}
-              {invoice?.status == 'draft' ? (
-                <Button label='Mark as Pending' />
-              ) : null}
+              <ActionButtons invoice={invoice!} />
             </div>
           </div>
         </header>
@@ -212,12 +204,7 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
         <p className='opacity-0'>padding for the love of God</p>
       </div>
       <div className='flex absolute bottom-0 left-0 md:hidden items-center justify-evenly z-10 px-6 py-5 bg-white dark:bg-[#1E2139] w-full'>
-        {invoice?.status == 'paid' ? null : <Button label='Edit' neutral />}
-        <Button label='Delete' danger />
-        {invoice?.status == 'pending' || invoice?.status == 'overdue' ? (
-          <Button label='Mark as Paid' />
-        ) : null}
-        {invoice?.status == 'draft' ? <Button label='Mark as Pending' /> : null}
+        <ActionButtons invoice={invoice!} />
       </div>
     </div>
   );

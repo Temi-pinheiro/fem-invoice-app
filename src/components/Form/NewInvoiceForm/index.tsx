@@ -19,7 +19,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-export default function NewInvoiceForm({ close }: { close: () => void }) {
+export default function NewInvoiceForm({ close }: { close?: () => void }) {
   const router = useRouter();
   const [action, setAction] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -110,7 +110,7 @@ export default function NewInvoiceForm({ close }: { close: () => void }) {
       toast.success('Invoice created successfully');
       startTransition(() => {
         router.refresh();
-        close();
+        close!();
       });
     } catch (e: any) {
       toast.error(e.message);

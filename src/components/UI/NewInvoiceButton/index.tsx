@@ -3,7 +3,7 @@ import { Button } from '~/components';
 import NewInvoiceForm from '~/components/Form/NewInvoiceForm';
 import { slideInModal } from '~/providers/SideModalProvider';
 
-export default function NewInvoiceButton(data: any) {
+export default function NewInvoiceButton() {
   const open = slideInModal();
   return (
     <Button
