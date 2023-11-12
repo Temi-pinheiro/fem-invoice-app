@@ -308,7 +308,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
         </div>
       </form>
       <div className=' absolute w-full bottom-0'>
-        <div className='w-full dark:hidden h-[100px] bg-gradient-to-b from-[rgba(255,255,255,.05)] to-[rgba(0,0,0,.2)]' />
+        <div className='w-full dark:hidden h-[100px] bg-gradient-to-b from-[rgba(255,255,255,.03)] bg-blend-multiply to-[rgba(0,0,0,.2)]' />
         <div className='flex items-center w-full justify-between p-6 pt-4 md:px-14 bg-white dark:bg-[#1E2139]'>
           <Button label='Discard' neutral effect={close} />
           <div className='gap-x-4 flex items-center ml-auto'>

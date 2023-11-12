@@ -101,10 +101,10 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
                     info={billingAddress?.clientName!}
                   />
                   <p className='text-[#7E88C3] dark:text-[#DFE3FA] text-sm text-left font-medium flex flex-col'>
-                    <span>{receivingAddress?.address},</span>
-                    <span>{receivingAddress?.city},</span>
-                    <span>{receivingAddress?.postCode},</span>
-                    <span>{receivingAddress?.country}.</span>
+                    <span>{billingAddress?.address},</span>
+                    <span>{billingAddress?.city},</span>
+                    <span>{billingAddress?.postCode},</span>
+                    <span>{billingAddress?.country}.</span>
                   </p>
                 </div>
               </div>

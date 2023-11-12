@@ -66,10 +66,10 @@ export default function EditInvoiceForm({
     check: recAddrCheck,
   } = useForm<typeof receivingAddrData>({
     initial: {
-      address: invoice.billingAddress.address,
-      city: invoice.billingAddress.city,
-      country: invoice.billingAddress.country,
-      postCode: invoice.billingAddress.postCode,
+      address: invoice.receivingAddress.address,
+      city: invoice.receivingAddress.city,
+      country: invoice.receivingAddress.country,
+      postCode: invoice.receivingAddress.postCode,
     },
     schema: { ...receivingAddrSchema },
   });
@@ -331,20 +331,24 @@ export default function EditInvoiceForm({
           <p className='opacity-0'>padding for the love of God</p>
         </div>
       </form>
-      <div className='flex items-center w-full justify-between p-6 pt-4 md:px-14 absolute shadow dark:shadow-none bottom-0 bg-white dark:bg-[#1E2139]'>
-        <Button label='Discard' neutral effect={close} />
-        <div className='gap-x-4 flex items-center ml-auto'>
-          {/* <Button
+      <div className=' absolute w-full bottom-0'>
+        <div className='w-full dark:hidden h-[100px] bg-gradient-to-b from-[rgba(255,255,255,.03)] bg-blend-multiply to-[rgba(0,0,0,.2)]' />
+        <div className='flex items-center w-full justify-between p-6 pt-4 md:px-14 bg-white dark:bg-[#1E2139]'>
+          {' '}
+          <Button label='Discard' neutral effect={close} />
+          <div className='gap-x-4 flex items-center ml-auto'>
+            {/* <Button
             label='Save as draft'
             draft
             effect={() => createInvoice('draft')}
             loading={isMutating && action == 'draft'}
           /> */}
-          <Button
-            label='Save & Send'
-            effect={() => updateInvoice()}
-            loading={isMutating}
-          />
+            <Button
+              label='Save & Send'
+              effect={() => updateInvoice()}
+              loading={isMutating}
+            />
+          </div>
         </div>
       </div>
     </div>

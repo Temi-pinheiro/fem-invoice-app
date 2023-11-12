@@ -5,10 +5,26 @@ import { prisma } from '~/lib/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 
 const generateInvoiceNum = async (user: any) => {
-  const lastIndex = await prisma.invoice.count({ where: { userId: user.id } });
-  return `${user.name.slice(0, 3)}${(lastIndex + 1)
-    .toString()
-    .padStart(3, '0')}`;
+  try {
+    const ledger = await prisma.ledger.upsert({
+      create: {
+        amount: 1,
+        userId: user.id,
+      },
+      update: {
+        amount: { increment: 1 },
+      },
+      where: {
+        userId: user.id,
+      },
+    });
+
+    return `${user.name.slice(0, 3)}${ledger.amount
+      .toString()
+      .padStart(3, '0')}`;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export async function POST(req: Request) {
@@ -29,7 +45,6 @@ export async function POST(req: Request) {
       curr.price * curr.quantity + init,
     0
   );
-
   try {
     const invoice = await prisma.invoice.create({
       data: {
