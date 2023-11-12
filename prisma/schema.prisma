@@ -59,7 +59,7 @@ model Invoice {
   dueDate          DateTime
   description      String
   amount           Float
-  paymentTermId    Int
+  paymentTermId    String
   billingAddress   BillingAddress?
   receivingAddress ReceivingAddress?
   status           Status            @default(pending)

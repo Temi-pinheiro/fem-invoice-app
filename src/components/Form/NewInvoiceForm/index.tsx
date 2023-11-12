@@ -8,7 +8,7 @@ import {
   billingAddrSchema,
   receivingAddrSchema,
   receivingAddrData,
-} from './data';
+} from '~/app/data/formData';
 import { TextInput } from '../TextInput';
 import { SelectInput } from '../SelectInput';
 import { Button } from '..';
@@ -87,6 +87,10 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
     //   toast.error('Please make sure you fill in all the required fields');
     //   return;
     // }
+    if (itemList.length == 0) {
+      toast.error('Please make sure you add items to this invoice');
+      return;
+    }
     setAction(action);
     setIsFetching(true);
 
@@ -107,9 +111,10 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
       setIsFetching(false);
       console.log(res);
       if (!res.ok) throw { message: res.statusText };
-      toast.success('Invoice created successfully');
       startTransition(() => {
         router.refresh();
+        toast.success('Invoice created successfully');
+
         close!();
       });
     } catch (e: any) {

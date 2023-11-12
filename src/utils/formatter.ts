@@ -7,6 +7,9 @@ const currencyLocale = Intl.NumberFormat.supportedLocalesOf(userLocale, {
   style: 'currency',
   currency: 'NGN',
 });
+const dateFormatter = new Intl.DateTimeFormat(userLocale, {
+  dateStyle: 'short', // You can use 'short', 'medium', 'long', or 'full' based on the desired format
+});
 
 export const getFormattedDate = (date: string | undefined | Date) => {
   if (!date) return '';
@@ -18,3 +21,5 @@ export const getFullMoney = (amount: number) => {
     currency: 'NGN',
   }).format(amount);
 };
+
+export const getInputDate = (date: any) => dayjs(date).format('yyyy-MM-dd');

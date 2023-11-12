@@ -80,26 +80,22 @@ export const SideModal = ({
                   className={styles.container}
                   onClick={(e: UIEvent) => e.stopPropagation}
                 >
-                  <button
-                    id='go-back'
-                    className='group flex items-center gap-x-4 dark:text-white text-[#0C0E16] mb-4 text-xs md:hidden'
-                    onClick={handleClose}
-                  >
-                    <BackIcon />
-                    Go Back
-                  </button>
-                  <div className='flex items-center w-full justify-between '>
-                    <h2 className='text-2xl text-[#0C0E16] dark:text-white font-bold'>
-                      {title}
-                    </h2>
+                  <header className='px-6 pb-3 pt-6 md:py-0 md:px-14  '>
                     <button
-                      id='close-icon'
-                      className='group hidden md:inline-block'
+                      id='go-back'
+                      className='group flex items-center gap-x-4 dark:text-white text-[#0C0E16] mb-4 text-xs md:hidden'
                       onClick={handleClose}
                     >
-                      <CloseIcon />
+                      <BackIcon />
+                      Go Back
                     </button>
-                  </div>
+                    <div className='flex items-center w-full justify-between '>
+                      <h2 className='text-2xl text-[#0C0E16] dark:text-white font-bold'>
+                        {title}
+                      </h2>
+                    </div>
+                  </header>
+
                   <div className={styles.component_container}>
                     {children ? children : null}
                     {React.isValidElement(component)

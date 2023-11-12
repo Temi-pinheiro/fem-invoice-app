@@ -21,10 +21,17 @@ export async function PUT(
     );
   }
   const data = await req.json();
-  const paymentTerm = await prisma.terms.findFirst({
-    where: { value: data.paymentTerm },
-  });
-  const items: { quantity: number; price: number }[] = data.items;
+
+  if (data.items.deletedItems.length > 0) {
+    await prisma.items.deleteMany({
+      where: {
+        id: {
+          in: [...data.items.deletedItems],
+        },
+      },
+    });
+  }
+  const items: { quantity: number; price: number }[] = data.items.items;
   const amount = items.reduce(
     (init, curr) => curr.price * curr.quantity + init,
     0
@@ -36,11 +43,27 @@ export async function PUT(
     },
     data: {
       ...data,
-      paymentTermId: paymentTerm?.id,
+      dueDate: new Date(data.dueDate),
+      paymentTermId: data.paymentTermId,
+      amount,
       status: data.status,
-      receivingAddress: { create: { ...data.receivingAddress } },
-      billingAddress: { create: { ...data.billingAddress } },
-      items: { createMany: { data: [...data.items] } },
+      receivingAddress: { update: { ...data.receivingAddress } },
+      billingAddress: { update: { ...data.billingAddress } },
+      items: {
+        upsert: data.items.items.map((item: any) => ({
+          create: {
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          },
+          update: {
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          },
+          where: { id: item.id },
+        })),
+      },
     },
   });
 
@@ -65,11 +88,28 @@ export async function DELETE(
     );
   }
 
-  const invoice = await prisma.invoice.delete({
+  const deleteRecAddresses = prisma.receivingAddress.deleteMany({
     where: {
-      id: invoiceId!,
+      invoiceId,
+    },
+  });
+  const deleteBillAddresses = prisma.billingAddress.deleteMany({
+    where: {
+      invoiceId,
     },
   });
 
-  return NextResponse.json(invoice);
+  const deleteInvoice = prisma.invoice.delete({
+    where: {
+      id: invoiceId,
+    },
+  });
+
+  const transaction = await prisma.$transaction([
+    deleteBillAddresses,
+    deleteRecAddresses,
+    deleteInvoice,
+  ]);
+
+  return NextResponse.json(transaction);
 }

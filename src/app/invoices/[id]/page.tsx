@@ -24,7 +24,6 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
     amount,
     description,
     invoiceNum,
-    paymentTermId,
     createdAt,
     dueDate,
     status,
@@ -44,14 +43,14 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
             <BackIcon />
             Go Back
           </Link>
-          <div className='flex flex-row bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 items-center rounded-lg justify-between'>
+          <div className='flex flex-row bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 items-center rounded-lg  '>
             <div className='flex items-center md:gap-x-4 justify-between md:justify-normal w-full'>
               <span className='dark:text-white text-[#0C0E16] text-sm font-medium'>
                 Status
               </span>
               <StatusBox status={status!} />
             </div>
-            <div className='hidden md:flex items-center gap-x-4'>
+            <div className='hidden md:flex items-center ml-auto gap-x-4 shrink-0'>
               <ActionButtons invoice={invoice!} />
             </div>
           </div>

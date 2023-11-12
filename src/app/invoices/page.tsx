@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 /* eslint-disable @next/next/no-img-element */
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
@@ -6,7 +7,6 @@ import InvoiceCard from '~/components/UI/Card';
 import NewInvoiceButton from '~/components/UI/NewInvoiceButton';
 import { prisma } from '~/lib/prisma';
 import { authOptions } from '../api/auth/[...nextauth]/route';
-import { AnimatePresence } from 'framer-motion';
 export const metadata: Metadata = {
   title: 'Invoice App',
   description: "Let's get this bread",
@@ -54,12 +54,12 @@ export default async function InvoicesPage() {
         </header>
 
         {invoices?.length > 0 ? (
-          <ul className='flex flex-col gap-y-4 mt-14 px-6 md:px-0'>
-            <AnimatePresence initial={false} mode='popLayout'>
-              {invoices.map((invoice) => (
-                <InvoiceCard key={invoice.id} invoice={invoice} />
-              ))}
-            </AnimatePresence>
+          <ul className='flex flex-col gap-y-4 mt-14 px-6 md:px-0 pb-2- md:pb-0'>
+            {/* <AnimatePresence initial={false} mode='popLayout'> */}
+            {invoices.map((invoice) => (
+              <InvoiceCard key={invoice.id} invoice={invoice} />
+            ))}
+            {/* </AnimatePresence> */}
           </ul>
         ) : (
           <div className='w-full h-full flex flex-col items-center justify-center'>
@@ -76,6 +76,12 @@ export default async function InvoicesPage() {
             </section>
           </div>
         )}
+        <div
+          aria-label='padding'
+          className='md:hidden mt-10 self-stretch shrink-0 py-10'
+        >
+          <p className='opacity-0'>padding for the love of God</p>
+        </div>
       </div>
     );
   } else {

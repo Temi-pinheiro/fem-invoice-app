@@ -17,18 +17,15 @@ export async function POST(req: Request) {
       { error: 'Unauthorized, please login' },
       { status: 401 }
     );
-  const email = session?.user?.email;
 
   const currentUser = await prisma.user.findFirst({
-    where: { email },
+    where: { email: session?.user?.email },
   });
   const data = await req.json();
-  const paymentTerm = await prisma.terms.findFirst({
-    where: { value: data.paymentTerm },
-  });
-  const items: { quantity: number; price: number }[] = data.items;
-  const amount = items.reduce(
-    (init, curr) => curr.price * curr.quantity + init,
+
+  const amount = data.items.reduce(
+    (init: number, curr: { quantity: number; price: number }) =>
+      curr.price * curr.quantity + init,
     0
   );
 
@@ -40,56 +37,12 @@ export async function POST(req: Request) {
       invoiceNum: await generateInvoiceNum(currentUser),
       dueDate: new Date(data.dueDate),
       userId: currentUser?.id,
-
-      paymentTermId: paymentTerm?.id,
+      paymentTermId: data.paymentTermId,
       status: data.status,
       receivingAddress: { create: { ...data.receivingAddress } },
       billingAddress: { create: { ...data.billingAddress } },
       items: { createMany: { data: [...data.items] } },
     },
-  });
-
-  return NextResponse.json(invoice);
-}
-export async function PUT(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session)
-    return NextResponse.json(
-      { error: 'Unauthorized, please login' },
-      { status: 401 }
-    );
-  const invoiceId = req.nextUrl.searchParams.get('id');
-  if (!invoiceId) {
-    return NextResponse.json(
-      { error: 'No invoice id selected' },
-      { status: 403 }
-    );
-  }
-  const data = await req.json();
-  const paymentTerm = await prisma.terms.findFirst({
-    where: { value: data.paymentTerm },
-  });
-  const items: { quantity: number; price: number }[] = data.items;
-  const amount = items.reduce(
-    (init, curr) => curr.price * curr.quantity + init,
-    0
-  );
-
-  const invoice = await prisma.invoice.update({
-    where: {
-      id: invoiceId!,
-    },
-    data: {
-      ...data,
-      paymentTermId: paymentTerm?.id,
-      status: data.status,
-    },
-
-    // paymentTermId: paymentTerm?.id,
-    // status: data.status,
-    // receivingAddress: { create: { ...data.receivingAddress } },
-    // billingAddress: { create: { ...data.billingAddress } },
-    // items: { createMany: { data: [...data.items] } },
   });
 
   return NextResponse.json(invoice);

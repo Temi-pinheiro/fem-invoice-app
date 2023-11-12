@@ -24,7 +24,7 @@ export const SelectInput = ({
   options,
   name,
   useLabel,
-  // defaultValue,
+  defaultValue,
   onChange,
   placeholder,
   required = false,
@@ -32,7 +32,7 @@ export const SelectInput = ({
 }: SelectElementProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
   const handleSelect = (option: any) => {
     onChange({
       target: {
@@ -41,7 +41,7 @@ export const SelectInput = ({
         label: option.label,
       },
     });
-    setValue(useLabel ? option.label : option.value);
+    // setValue(option.label);
     setIsOpen(false);
   };
   const handleOpen = () => {
@@ -49,6 +49,11 @@ export const SelectInput = ({
   };
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const getLabel = (selected: any) => {
+    const [option] = options.filter((op) => op.value == selected);
+    return option?.label;
   };
 
   useEffect(() => {
@@ -78,7 +83,7 @@ export const SelectInput = ({
       )}
       <div className=' relative select-input ' ref={dropdownContainerRef}>
         <button className='w-full text-left' onClick={handleOpen} type='button'>
-          {value || placeholder}
+          {getLabel(defaultValue) || placeholder}
         </button>
 
         <AnimatePresence>

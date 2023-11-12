@@ -1,7 +1,8 @@
+'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { ReactNode, UIEvent, useState } from 'react';
 import styles from './styles.module.css';
-import { closeModal } from '~/providers';
+import { closeModal } from '~/providers/ModalProvider';
 const bgVariant = {
   enter: {
     opacity: 0,
@@ -43,11 +44,11 @@ export const Modal = ({
         <motion.div
           initial='enter'
           animate='animate'
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   e.bubbles = false;
-          //   handleClose();
-          // }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.bubbles = false;
+            handleClose();
+          }}
           exit='exit'
           variants={bgVariant}
           className={styles.background}
@@ -55,34 +56,24 @@ export const Modal = ({
           <AnimatePresence mode='wait'>
             {isOpen && (
               <motion.div
-                onClick={(e: UIEvent) => e.stopPropagation}
+                onClick={(e: UIEvent) => e.stopPropagation()}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                className='@container-normal'
+                // className='@container-normal'
                 layout
               >
                 <div
-                  className={`${styles.container} ${title ? 'pt-12' : 'pt-8'}`}
+                  className={
+                    'p-8 md:p-12 bg-white dark:bg-[#1E2139] rounded-lg'
+                  }
                   onClick={(e: UIEvent) => e.stopPropagation}
                 >
+                  <h2 className='text-xl md:text-2xl text-[#0C0E16] dark:text-white font-bold'>
+                    {title}
+                  </h2>
                   <div
-                    className={`${
-                      title ? 'border-b' : ''
-                    } flex items-center px-6 py-4 w-full justify-between absolute top-0 bg-white z-10`}
-                  >
-                    <h2 className='text-lg font-medium'>{title}</h2>
-                    <button
-                      id='close-icon'
-                      type='button'
-                      className='group'
-                      onClick={handleClose}
-                    >
-                      <CloseIcon />
-                    </button>
-                  </div>
-                  <div
-                    className={styles.component_container}
+                    className='w-full h-full max-w-[384pxz]'
                     onClick={(e: UIEvent) => e.stopPropagation}
                   >
                     {children ? children : null}

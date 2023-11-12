@@ -47,7 +47,11 @@ export default function InvoiceCard({
           {getFullMoney(invoice.amount)}
         </span>
         <StatusBox status={invoice.status} />
-        <Link href={`/invoices/${invoice.id}`} className='self-end p-3'>
+        <Link
+          href={`/invoices/${invoice.id}`}
+          prefetch={false}
+          className='self-end p-3'
+        >
           <svg
             width='7'
             height='10'

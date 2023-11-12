@@ -66,7 +66,7 @@ export const Button = ({
           <span className='absolute z-10'>
             <Loader bgColor='#2C1DFF' />
           </span>
-          <span className='opacity-0'>{label}</span>
+          <p className='opacity-0'>{label}</p>
         </span>
       ) : (
         <>
