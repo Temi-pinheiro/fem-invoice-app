@@ -16,7 +16,7 @@
 }
 
 .container {
-  @apply h-full md:h-screen md:pt-14 w-full md:w-[616px] lg:w-[719px] bg-white dark:bg-[#141625] absolute left-0  overflow-clip;
+  @apply h-full md:h-screen md:pt-14 w-full md:w-[616px] lg:w-[719px] md:rounded-r-[20px] bg-white dark:bg-[#141625] absolute overflow-clip;
 }
 
 .component_container {

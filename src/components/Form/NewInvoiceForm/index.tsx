@@ -293,7 +293,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
                 ))}
               </AnimatePresence>
             </ul>
-            <Button label='+ Add New Item' fullWidth draft effect={addItem} />
+            <Button label='+ Add New Item' fullWidth neutral effect={addItem} />
           </section>
         </section>
         <div
@@ -307,23 +307,23 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
           <p className='opacity-0'>padding for the love of God</p>
         </div>
       </form>
-      <div className=' absolute w-full bottom-0'>
-        <div className='w-full dark:hidden h-[100px] bg-gradient-to-b from-[rgba(255,255,255,.03)] bg-blend-multiply to-[rgba(0,0,0,.2)]' />
-        <div className='flex items-center w-full justify-between p-6 pt-4 md:px-14 bg-white dark:bg-[#1E2139]'>
-          <Button label='Discard' neutral effect={close} />
-          <div className='gap-x-4 flex items-center ml-auto'>
-            <Button
-              label='Save as draft'
-              draft
-              effect={() => createInvoice('draft')}
-              loading={isMutating && action == 'draft'}
-            />
-            <Button
-              label='Save & Send'
-              effect={() => createInvoice('submit')}
-              loading={isMutating && action == 'submit'}
-            />
-          </div>
+      <div
+        style={{ boxShadow: '1px 20px 141px -5px #000000bf' }}
+        className='flex items-center w-full justify-between  absolute bottom-0 p-6 pt-5 md:px-14 bg-white dark:bg-[#1E2139] md:dark:bg-[#141625] rounded-b-none md:rounded-br-[20px] rounded-t-[20px] md:rounded-bl-none '
+      >
+        <Button label='Discard' neutral effect={close} />
+        <div className='gap-x-4 flex items-center ml-auto'>
+          <Button
+            label='Save as draft'
+            draft
+            effect={() => createInvoice('draft')}
+            loading={isMutating && action == 'draft'}
+          />
+          <Button
+            label='Save & Send'
+            effect={() => createInvoice('submit')}
+            loading={isMutating && action == 'submit'}
+          />
         </div>
       </div>
     </div>
