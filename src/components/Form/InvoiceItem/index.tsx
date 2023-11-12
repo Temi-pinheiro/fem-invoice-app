@@ -36,8 +36,8 @@ export default function InvoiceItem({
         transition: { height: { delay: 0.3 }, opacity: 0.1 },
       }}
     >
-      <div className='w-full flex items-center gap-x-4 flex-wrap md:flex-nowrap'>
-        <div className='w-full md:max-w-[200px]'>
+      <div className='w-full flex items-center gap-x-4 flex-wrap min-[500px]:flex-nowrap'>
+        <div className='w-full min-[500px]:max-w-[200px]'>
           <TextInput
             name='name'
             label='Item name'
@@ -46,7 +46,7 @@ export default function InvoiceItem({
           />
         </div>
         <div className='flex items-center gap-x-4 w-full'>
-          <div className='md:max-w-[60px]'>
+          <div className=' max-w-[60px]'>
             <TextInput
               name='quantity'
               label='Qty.'
@@ -55,7 +55,7 @@ export default function InvoiceItem({
               value={item.quantity}
             />
           </div>
-          <div className='md:max-w-[100px]'>
+          <div className=' max-w-[100px]'>
             <TextInput
               name='price'
               label='Price'

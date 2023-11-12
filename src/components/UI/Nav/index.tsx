@@ -9,7 +9,7 @@ export default function NavBar() {
   const toggle = toggleTheme();
   return (
     <div className='bg-gray-50 dark:bg-[#141625] md:h-screen'>
-      <nav className='md:h-full w-full md:w-[103px] bg-[#1E2139]   md:rounded-br-lg flex flex-row md:flex-col'>
+      <nav className='md:h-full w-full md:w-[103px] bg-[#1E2139]   md:rounded-r-[20px] flex flex-row md:flex-col'>
         <img
           src='/icon.svg'
           alt='icon'

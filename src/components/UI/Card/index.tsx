@@ -48,7 +48,7 @@ export default function InvoiceCard({
         transition: { height: { delay: 0.3 }, opacity: 0.1 },
       }}
     >
-      <div className='bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 hidden md:flex items-center rounded-lg justify-evenly'>
+      <div className='bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 shadow dark:shadow-none hidden md:flex items-center rounded-lg justify-evenly'>
         <span className='text-sm font-bold text-[#0C0E16] dark:text-white uppercase max-w-[100px] w-full'>
           <span className='text-[#7E88C3] dark:text-[#888EB0]'>#</span>{' '}
           {invoice.invoiceNum}

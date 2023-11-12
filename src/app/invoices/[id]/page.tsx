@@ -43,7 +43,7 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
             <BackIcon />
             Go Back
           </Link>
-          <div className='flex flex-row bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 items-center rounded-lg  '>
+          <div className='flex flex-row bg-white dark:bg-[#1E2139] shadow dark:shadow-none py-4 pl-8 pr-3 items-center rounded-lg  '>
             <div className='flex items-center md:gap-x-4 justify-between md:justify-normal w-full'>
               <span className='dark:text-white text-[#0C0E16] text-sm font-medium'>
                 Status
@@ -55,7 +55,7 @@ export default async function InvoicePage({ params }: { params: { id: any } }) {
             </div>
           </div>
         </header>
-        <div className='rounded-lg mt-4 md:mt-6 bg-white dark:bg-[#1E2139] p-6 md:p-8'>
+        <div className='rounded-lg mt-4 md:mt-6 bg-white dark:bg-[#1E2139] shadow dark:shadow-none p-6 md:p-8'>
           <section
             className='flex flex-col gap-y-[30px] md:flex-row w-full md:justify-between md:items-start'
             aria-label='receiving address info'
