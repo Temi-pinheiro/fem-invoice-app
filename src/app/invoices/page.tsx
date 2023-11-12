@@ -64,12 +64,9 @@ export default async function InvoicesPage() {
                 There is nothing here
               </h2>
               <p className='text-sm text-[#0C0E16] dark:text-[#888EB0]  font-medium'>
-                To create an invoice{session ? 'click' : 'start by clicking '}
-                the{' '}
-                <span className='text-semibold'>
-                  {session ? 'New Invoice' : 'Login'}
-                </span>{' '}
-                button and get started
+                Create an invoice by clicking the{' '}
+                <span className='text-semibold'>New Invoice</span> button and
+                get started
               </p>
             </section>
           </div>
@@ -117,9 +114,12 @@ export default async function InvoicesPage() {
                 There is nothing here
               </h2>
               <p className='text-sm text-[#0C0E16] dark:text-[#888EB0]  font-medium'>
-                Create an invoice by clicking the{' '}
-                <span className='text-semibold'>New Invoice</span> button and
-                get started
+                To create an invoice{session ? 'click' : 'start by clicking '}
+                the{' '}
+                <span className='text-semibold'>
+                  {session ? 'New Invoice' : 'Login'}
+                </span>{' '}
+                button and get started
               </p>
             </section>
           </div>
