@@ -3,6 +3,7 @@
 import React from 'react';
 import { Status } from '@prisma/client';
 import { getFormattedDate, getFullMoney } from '~/utils/formatter';
+import { motion } from 'framer-motion';
 import { StatusBox } from '../StatusBox/StatusBox';
 import Link from 'next/link';
 
@@ -28,7 +29,25 @@ export default function InvoiceCard({
   };
 }) {
   return (
-    <>
+    <motion.div
+      initial={{ height: 0, x: -500, opacity: 0 }}
+      animate={{
+        height: 'auto',
+        x: 0,
+        opacity: 1,
+        transition: {
+          type: 'tween',
+          ease: [0.4, 0.0, 0.2, 1],
+          duration: 0.3,
+        },
+      }}
+      exit={{
+        x: 300,
+        opacity: 0,
+        height: 0,
+        transition: { height: { delay: 0.3 }, opacity: 0.1 },
+      }}
+    >
       <div className='bg-white dark:bg-[#1E2139] py-4 pl-8 pr-3 hidden md:flex items-center rounded-lg justify-evenly'>
         <span className='text-sm font-bold text-[#0C0E16] dark:text-white uppercase max-w-[100px] w-full'>
           <span className='text-[#7E88C3] dark:text-[#888EB0]'>#</span>{' '}
@@ -89,6 +108,6 @@ export default function InvoiceCard({
           <StatusBox status={invoice.status} />
         </div>
       </Link>
-    </>
+    </motion.div>
   );
 }

@@ -7,6 +7,7 @@ import AuthProvider from '~/lib/AuthProvider';
 import SideModalProvider from '~/providers/SideModalProvider';
 import { ToastNotifications } from '~/components/UI/ToastNotifications';
 import ModalProvider from '~/providers/ModalProvider';
+import ThemeProvider from '~/providers/ThemeProvider';
 
 export default function RootLayout({
   children,
@@ -19,16 +20,18 @@ export default function RootLayout({
         <html lang='en' className='h-full w-full'>
           <body className='h-full w-full'>
             <ToastNotifications />
-            <ModalProvider>
-              <SideModalProvider>
-                <div className='w-full h-full flex flex-col md:flex-row overflow-y-clip'>
-                  <NavBar />
-                  <main className='bg-gray-50 dark:bg-[#141625] transition h-[100%] w-full overflow-y-scroll flex justify-center'>
-                    {children}
-                  </main>
-                </div>
-              </SideModalProvider>
-            </ModalProvider>
+            <ThemeProvider>
+              <ModalProvider>
+                <SideModalProvider>
+                  <div className='w-full h-full flex flex-col md:flex-row overflow-y-clip'>
+                    <NavBar />
+                    <main className='bg-gray-50 dark:bg-[#141625] transition h-[100%] w-full overflow-y-scroll flex justify-center'>
+                      {children}
+                    </main>
+                  </div>
+                </SideModalProvider>
+              </ModalProvider>
+            </ThemeProvider>
           </body>
         </html>
       </AuthProvider>

@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
-export const revalidate = 300;
+export const revalidate = 1;
+
 /* eslint-disable @next/next/no-img-element */
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
@@ -7,13 +8,13 @@ import InvoiceCard from '~/components/UI/Card';
 import NewInvoiceButton from '~/components/UI/NewInvoiceButton';
 import { prisma } from '~/lib/prisma';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import InvoiceCardList from '~/components/UI/InvoiceCardList';
 export const metadata: Metadata = {
   title: 'Invoice App',
   description: "Let's get this bread",
 };
 export default async function InvoicesPage() {
   const session = await getServerSession(authOptions);
-  console.log(session);
   if (session) {
     const email = session?.user?.email;
     const user = await prisma.user.findFirst({
@@ -54,13 +55,7 @@ export default async function InvoicesPage() {
         </header>
 
         {invoices?.length > 0 ? (
-          <ul className='flex flex-col gap-y-4 mt-14 px-6 md:px-0 pb-2- md:pb-0'>
-            {/* <AnimatePresence initial={false} mode='popLayout'> */}
-            {invoices.map((invoice) => (
-              <InvoiceCard key={invoice.id} invoice={invoice} />
-            ))}
-            {/* </AnimatePresence> */}
-          </ul>
+          <InvoiceCardList invoices={invoices} />
         ) : (
           <div className='w-full h-full flex flex-col items-center justify-center'>
             <img src='/empty.svg' alt='no invoices icon' />
@@ -69,9 +64,12 @@ export default async function InvoicesPage() {
                 There is nothing here
               </h2>
               <p className='text-sm text-[#0C0E16] dark:text-[#888EB0]  font-medium'>
-                Create an invoice by clicking the{' '}
-                <span className='text-semibold'>New Invoice</span> button and
-                get started
+                To create an invoice{session ? 'click' : 'start by clicking '}
+                the{' '}
+                <span className='text-semibold'>
+                  {session ? 'New Invoice' : 'Login'}
+                </span>{' '}
+                button and get started
               </p>
             </section>
           </div>

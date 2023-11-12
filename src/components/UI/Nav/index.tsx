@@ -2,9 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Loader from '../Loader';
+import { toggleTheme } from '~/providers/ThemeProvider';
 
 export default function NavBar() {
   const { status, data: session } = useSession();
+  const toggle = toggleTheme();
   return (
     <div className='bg-gray-50 dark:bg-[#141625] md:h-screen'>
       <nav className='md:h-full w-full md:w-[103px] bg-[#1E2139]   md:rounded-br-lg flex flex-row md:flex-col'>
@@ -15,8 +17,19 @@ export default function NavBar() {
         />
         <div className='ml-auto md:mt-auto md:ml-0 flex md:flex-col flex-row w-max md:w-full'>
           <span className='md:w-full grid place-items-center px-6 md:px-0 md:pb-[28px]'>
-            <button type='button'>
+            <button
+              type='button'
+              className='hidden dark:inline'
+              onClick={toggle}
+            >
               <Sun />
+            </button>
+            <button
+              type='button'
+              className='inline dark:hidden'
+              onClick={toggle}
+            >
+              <Moon />
             </button>
           </span>
           <button

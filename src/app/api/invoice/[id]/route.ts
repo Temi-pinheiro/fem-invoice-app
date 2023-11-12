@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../../auth/[...nextauth]/route';
 import { prisma } from '~/lib/prisma';
+import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 
 export async function PUT(
   req: NextRequest,
@@ -36,38 +37,44 @@ export async function PUT(
     (init, curr) => curr.price * curr.quantity + init,
     0
   );
-
-  const invoice = await prisma.invoice.update({
-    where: {
-      id: invoiceId!,
-    },
-    data: {
-      ...data,
-      dueDate: new Date(data.dueDate),
-      paymentTermId: data.paymentTermId,
-      amount,
-      status: data.status,
-      receivingAddress: { update: { ...data.receivingAddress } },
-      billingAddress: { update: { ...data.billingAddress } },
-      items: {
-        upsert: data.items.items.map((item: any) => ({
-          create: {
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-          },
-          update: {
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-          },
-          where: { id: item.id },
-        })),
+  try {
+    const invoice = await prisma.invoice.update({
+      where: {
+        id: invoiceId!,
       },
-    },
-  });
-
-  return NextResponse.json(invoice);
+      data: {
+        ...data,
+        dueDate: new Date(data.dueDate),
+        paymentTermId: data.paymentTermId,
+        amount,
+        status: data.status,
+        receivingAddress: { update: { ...data.receivingAddress } },
+        billingAddress: { update: { ...data.billingAddress } },
+        items: {
+          upsert: data.items.items.map((item: any) => ({
+            create: {
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+            },
+            update: {
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+            },
+            where: { id: item.id },
+          })),
+        },
+      },
+    });
+    return NextResponse.json(invoice);
+  } catch (e: any) {
+    if (e instanceof PrismaClientValidationError) {
+      return NextResponse.json({ error: e.message }, { status: 401 });
+    } else {
+      NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
+  }
 }
 
 export async function DELETE(

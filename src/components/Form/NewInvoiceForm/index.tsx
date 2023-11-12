@@ -73,7 +73,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
         id: v4(),
         name: '',
         quantity: 1,
-        price: undefined,
+        price: 0,
       },
     ]);
   };
@@ -109,7 +109,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
         },
       });
       setIsFetching(false);
-      console.log(res);
+
       if (!res.ok) throw { message: res.statusText };
       startTransition(() => {
         router.refresh();
@@ -123,194 +123,209 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
   };
 
   return (
-    <form className='w-full flex flex-col gap-y-12'>
-      <section aria-label='bill to' className='flex flex-col mt-12'>
-        <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
-        <TextInput
-          label='Street Adrress'
-          key='receaddradd'
-          error={recAddrErrors.address}
-          name='address'
-          errorCheck={recAddrCheck}
-          value={recAddrData.address}
-          handleInputChange={recAddrUpdate}
-        />
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full'>
-          <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
-            <TextInput
-              label='City'
-              key='recaddrci'
-              error={recAddrErrors.city}
-              name='city'
-              errorCheck={recAddrCheck}
-              value={recAddrData.city}
-              handleInputChange={recAddrUpdate}
-            />
-            <TextInput
-              label='Postal Code'
-              error={recAddrErrors.postCode}
-              key='recaddrcod'
-              name='postCode'
-              errorCheck={recAddrCheck}
-              value={recAddrData.postCode}
-              handleInputChange={recAddrUpdate}
-            />
-          </div>
+    <div className='w-full h-full'>
+      <form className='w-full h-full flex flex-col gap-y-12 p-6 md:px-14 '>
+        <section aria-label='bill to' className='flex flex-col mt-12'>
+          <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
           <TextInput
-            label='Country'
-            error={recAddrErrors.country}
-            name='country'
-            key='receaddrcou'
+            label='Street Adrress'
+            key='receaddradd'
+            error={recAddrErrors.address}
+            name='address'
             errorCheck={recAddrCheck}
-            value={recAddrData.country}
+            value={recAddrData.address}
             handleInputChange={recAddrUpdate}
           />
-        </div>
-      </section>
-      <section aria-label='bill from' className='flex flex-col'>
-        {' '}
-        <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
-        <TextInput
-          label="Client's Name"
-          error={billAddrErrors.clientName}
-          key='billaddrnam'
-          name='clientName'
-          errorCheck={billAddrCheck}
-          value={billAddrDara.clientName}
-          handleInputChange={billAddrUpdate}
-        />
-        <TextInput
-          label="Client's email"
-          error={billAddrErrors.email}
-          type='email'
-          key='billaddrema'
-          name='email'
-          errorCheck={billAddrCheck}
-          value={billAddrDara.email}
-          handleInputChange={billAddrUpdate}
-        />
-        <TextInput
-          label='Street Adrress'
-          error={billAddrErrors.address}
-          name='address'
-          key='billaddraddr'
-          errorCheck={billAddrCheck}
-          value={billAddrDara.address}
-          handleInputChange={billAddrUpdate}
-        />
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full '>
-          <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full'>
+            <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
+              <TextInput
+                label='City'
+                key='recaddrci'
+                error={recAddrErrors.city}
+                name='city'
+                errorCheck={recAddrCheck}
+                value={recAddrData.city}
+                handleInputChange={recAddrUpdate}
+              />
+              <TextInput
+                label='Postal Code'
+                error={recAddrErrors.postCode}
+                key='recaddrcod'
+                name='postCode'
+                errorCheck={recAddrCheck}
+                value={recAddrData.postCode}
+                handleInputChange={recAddrUpdate}
+              />
+            </div>
             <TextInput
-              label='City'
-              error={billAddrErrors.city}
-              name='city'
-              key='billaddrci'
-              errorCheck={billAddrCheck}
-              value={billAddrDara.city}
-              handleInputChange={billAddrUpdate}
+              label='Country'
+              error={recAddrErrors.country}
+              name='country'
+              key='receaddrcou'
+              errorCheck={recAddrCheck}
+              value={recAddrData.country}
+              handleInputChange={recAddrUpdate}
             />
+          </div>
+        </section>
+        <section aria-label='bill from' className='flex flex-col'>
+          {' '}
+          <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
+          <TextInput
+            label="Client's Name"
+            error={billAddrErrors.clientName}
+            key='billaddrnam'
+            name='clientName'
+            errorCheck={billAddrCheck}
+            value={billAddrDara.clientName}
+            handleInputChange={billAddrUpdate}
+          />
+          <TextInput
+            label="Client's email"
+            error={billAddrErrors.email}
+            type='email'
+            key='billaddrema'
+            name='email'
+            errorCheck={billAddrCheck}
+            value={billAddrDara.email}
+            handleInputChange={billAddrUpdate}
+          />
+          <TextInput
+            label='Street Adrress'
+            error={billAddrErrors.address}
+            name='address'
+            key='billaddraddr'
+            errorCheck={billAddrCheck}
+            value={billAddrDara.address}
+            handleInputChange={billAddrUpdate}
+          />
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-4 w-full '>
+            <div className='grid grid-cols-2 gap-x-4 w-full lg:col-span-2'>
+              <TextInput
+                label='City'
+                error={billAddrErrors.city}
+                name='city'
+                key='billaddrci'
+                errorCheck={billAddrCheck}
+                value={billAddrDara.city}
+                handleInputChange={billAddrUpdate}
+              />
+              <TextInput
+                label='Postal Code'
+                error={billAddrErrors.postCode}
+                name='postCode'
+                errorCheck={billAddrCheck}
+                key='billadddrcod'
+                value={billAddrDara.postCode}
+                handleInputChange={billAddrUpdate}
+              />
+            </div>
             <TextInput
-              label='Postal Code'
-              error={billAddrErrors.postCode}
-              name='postCode'
+              label='Country'
+              error={billAddrErrors.country}
+              name='country'
+              key='billaddrcou'
               errorCheck={billAddrCheck}
-              key='billadddrcod'
-              value={billAddrDara.postCode}
+              value={billAddrDara.country}
               handleInputChange={billAddrUpdate}
             />
           </div>
+        </section>
+        <section aria-label='invoice deets' className='flex flex-col gap-y-2'>
+          <div className='grid grid-cols-2 gap-x-6 w-full'>
+            <TextInput
+              label='Issue Date'
+              type='date'
+              key='issueda'
+              error={errors.dueDate}
+              name='dueDate'
+              errorCheck={check}
+              value={formData.dueDate}
+              handleInputChange={update}
+            />
+            <SelectInput
+              label='Payment Terms'
+              options={[
+                {
+                  label: 'Net 1 Day',
+                  value: 'Net1',
+                },
+                {
+                  label: 'Net 7 Days',
+                  value: 'Net7',
+                },
+                {
+                  label: 'Net 14 Days',
+                  value: 'Net14',
+                },
+                {
+                  label: 'Net 30 Days',
+                  value: 'Net30',
+                },
+              ]}
+              key='paymentTermId'
+              name='paymentTermId'
+              placeholder='Please select terms'
+              defaultValue={formData.paymentTermId}
+              onChange={update}
+            />
+          </div>
           <TextInput
-            label='Country'
-            error={billAddrErrors.country}
-            name='country'
-            key='billaddrcou'
-            errorCheck={billAddrCheck}
-            value={billAddrDara.country}
-            handleInputChange={billAddrUpdate}
-          />
-        </div>
-      </section>
-      <section aria-label='invoice deets' className='flex flex-col gap-y-2'>
-        <div className='grid grid-cols-2 gap-x-6 w-full'>
-          <TextInput
-            label='Issue Date'
-            type='date'
-            key='issueda'
-            error={errors.dueDate}
-            name='dueDate'
+            label='Product Description'
+            key='desc'
+            error={errors.description}
+            name='description'
             errorCheck={check}
-            value={formData.dueDate}
+            value={formData.description}
             handleInputChange={update}
           />
-          <SelectInput
-            label='Payment Terms'
-            options={[
-              {
-                label: 'Net 1 Day',
-                value: 'Net1',
-              },
-              {
-                label: 'Net 7 Days',
-                value: 'Net7',
-              },
-              {
-                label: 'Net 14 Days',
-                value: 'Net14',
-              },
-              {
-                label: 'Net 30 Days',
-                value: 'Net30',
-              },
-            ]}
-            key='paymentTermId'
-            name='paymentTermId'
-            placeholder='Please select terms'
-            // defaultValue={formData.paymentTermId}
-            onChange={update}
-          />
-        </div>
-        <TextInput
-          label='Product Description'
-          key='desc'
-          error={errors.description}
-          name='description'
-          errorCheck={check}
-          value={formData.description}
-          handleInputChange={update}
-        />
-        <section aria-label='items' className='flex flex-col gap-y-6'>
-          <h3 className='text-lg text-slate-500 font-bold'>Item List</h3>
-          <ul className='w-full flex flex-col  '>
-            <AnimatePresence mode='popLayout' initial={false}>
-              {itemList?.map((item) => (
-                <InvoiceItem
-                  key={item.id}
-                  item={item}
-                  updateFunc={updateItem}
-                  deleteFunc={deleteItem}
-                />
-              ))}
-            </AnimatePresence>
-          </ul>
-          <Button label='+ Add New Item' fullWidth draft effect={addItem} />
+          <section aria-label='items' className='flex flex-col gap-y-6'>
+            <h3 className='text-lg text-slate-500 font-bold'>Item List</h3>
+            <ul className='w-full flex flex-col  '>
+              <AnimatePresence mode='popLayout' initial={false}>
+                {itemList?.map((item) => (
+                  <InvoiceItem
+                    key={item.id}
+                    item={item}
+                    updateFunc={updateItem}
+                    deleteFunc={deleteItem}
+                  />
+                ))}
+              </AnimatePresence>
+            </ul>
+            <Button label='+ Add New Item' fullWidth draft effect={addItem} />
+          </section>
         </section>
-      </section>
-      <div className='flex items-center w-full justify-between pb-8'>
-        <Button label='Discard' neutral effect={close} />
-        <div className='gap-x-4 flex items-center ml-auto'>
-          <Button
-            label='Save as draft'
-            draft
-            effect={() => createInvoice('draft')}
-            loading={isMutating && action == 'draft'}
-          />
-          <Button
-            label='Save & Send'
-            effect={() => createInvoice('submit')}
-            loading={isMutating && action == 'submit'}
-          />
+        <div
+          aria-label='padding'
+          className=' mt-10 self-stretch shrink-0'
+          style={{
+            paddingTop: '100px',
+            paddingBottom: '100px',
+          }}
+        >
+          <p className='opacity-0'>padding for the love of God</p>
+        </div>
+      </form>
+      <div className=' absolute w-full bottom-0'>
+        <div className='w-full dark:hidden h-[100px] bg-gradient-to-b from-[rgba(255,255,255,.05)] to-[rgba(0,0,0,.2)]' />
+        <div className='flex items-center w-full justify-between p-6 pt-4 md:px-14 bg-white dark:bg-[#1E2139]'>
+          <Button label='Discard' neutral effect={close} />
+          <div className='gap-x-4 flex items-center ml-auto'>
+            <Button
+              label='Save as draft'
+              draft
+              effect={() => createInvoice('draft')}
+              loading={isMutating && action == 'draft'}
+            />
+            <Button
+              label='Save & Send'
+              effect={() => createInvoice('submit')}
+              loading={isMutating && action == 'submit'}
+            />
+          </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

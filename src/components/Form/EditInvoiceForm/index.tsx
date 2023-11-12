@@ -99,7 +99,7 @@ export default function EditInvoiceForm({
         id: v4(),
         name: '',
         quantity: 1,
-        price: undefined,
+        price: 0,
       },
     ]);
   };
@@ -324,8 +324,8 @@ export default function EditInvoiceForm({
           aria-label='padding'
           className=' mt-10 self-stretch shrink-0'
           style={{
-            paddingTop: itemList?.length! * 30 + 'px',
-            paddingBottom: itemList?.length! * 30 + 'px',
+            paddingTop: '100px',
+            paddingBottom: '100px',
           }}
         >
           <p className='opacity-0'>padding for the love of God</p>

@@ -22,4 +22,4 @@ export const getFullMoney = (amount: number) => {
   }).format(amount);
 };
 
-export const getInputDate = (date: any) => dayjs(date).format('yyyy-MM-dd');
+export const getInputDate = (date: any) => dayjs(date).format('YYYY-MM-DD');
