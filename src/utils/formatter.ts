@@ -3,7 +3,7 @@ import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 
 dayjs.extend(LocalizedFormat);
 let userLocale = 'en-NG';
-if ('userAgent' in navigator) {
+if (navigator && 'userAgent' in navigator) {
   userLocale = navigator.language;
 } else {
   console.error('Currently dont have access to navigator, fallign back');
