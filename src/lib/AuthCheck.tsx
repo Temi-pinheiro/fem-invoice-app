@@ -1,11 +1,14 @@
-'use client';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '~/app/api/auth/[...nextauth]/route';
 
-import { useSession } from 'next-auth/react';
+export default async function AuthCheck({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getServerSession(authOptions);
 
-export default function AuthCheck({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
-
-  if (status === 'authenticated') {
+  if (session) {
     return <>{children}</>;
   } else {
     return <> </>;
