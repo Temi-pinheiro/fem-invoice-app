@@ -2,7 +2,12 @@ import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 
 dayjs.extend(LocalizedFormat);
-const userLocale = navigator.language;
+let userLocale = 'en-NG';
+if ('userAgent' in navigator) {
+  userLocale = navigator.language;
+} else {
+  console.error('Currently dont have access to navigator, fallign back');
+}
 const currencyLocale = Intl.NumberFormat.supportedLocalesOf(userLocale, {
   style: 'currency',
   currency: 'NGN',
