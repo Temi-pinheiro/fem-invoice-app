@@ -114,7 +114,7 @@ export default async function InvoicesPage() {
                 There is nothing here
               </h2>
               <p className='text-sm text-[#0C0E16] dark:text-[#888EB0]  font-medium'>
-                To create an invoice{session ? 'click' : 'start by clicking '}
+                To create an invoice{session ? 'click' : ' start by clicking '}
                 the{' '}
                 <span className='text-semibold'>
                   {session ? 'New Invoice' : 'Login'}
