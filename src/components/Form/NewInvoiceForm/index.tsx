@@ -126,7 +126,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
     <div className='w-full h-full'>
       <form className='w-full h-full flex flex-col gap-y-12 p-6 md:px-14 '>
         <section aria-label='bill to' className='flex flex-col mt-12'>
-          <h5 className='text-violet-500 font-bold text-sm'>Bill To</h5>
+          <h5 className='text-violet-500 font-bold text-sm'>Bill From</h5>
           <TextInput
             label='Street Adrress'
             key='receaddradd'
