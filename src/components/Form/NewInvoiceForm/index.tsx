@@ -128,7 +128,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
         <section aria-label='bill to' className='flex flex-col mt-12'>
           <h5 className='text-violet-500 font-bold text-sm'>Bill From</h5>
           <TextInput
-            label='Street Adrress'
+            label='Street Address'
             key='receaddradd'
             error={recAddrErrors.address}
             name='address'
@@ -191,7 +191,7 @@ export default function NewInvoiceForm({ close }: { close?: () => void }) {
             handleInputChange={billAddrUpdate}
           />
           <TextInput
-            label='Street Adrress'
+            label='Street Address'
             error={billAddrErrors.address}
             name='address'
             key='billaddraddr'

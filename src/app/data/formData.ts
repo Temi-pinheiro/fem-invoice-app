@@ -83,7 +83,7 @@ export const receivingAddrSchema = {
       {
         rule: 'required',
         value: true,
-        message: 'Please enter a postCode',
+        message: 'Please enter a post code',
       },
     ],
   },
@@ -108,7 +108,7 @@ export const billingAddrSchema = {
       {
         rule: 'required',
         value: true,
-        message: 'Please enter a postCode',
+        message: 'Please enter an email address',
       },
     ],
   },
@@ -136,7 +136,7 @@ export const billingAddrSchema = {
       {
         rule: 'required',
         value: true,
-        message: 'Please enter a postCode',
+        message: 'Please enter a post code',
       },
     ],
   },
@@ -145,7 +145,7 @@ export const billingAddrSchema = {
       {
         rule: 'required',
         value: true,
-        message: 'Please enter the client&apos;s email',
+        message: "Please enter the client's  email",
       },
     ],
   },
